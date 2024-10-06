@@ -16,10 +16,13 @@ function Counter(){
 
   console.log("render function called");
 
-  useEffect(() => {
+  useEffect(function (){
     setInterval(function() {
-      setCount(count + 1);
+      setCount(function(currentCount) {
+        return currentCount + 1;
+      });
     }, 1000);
+    console.log("component did mount");
   }, []);
 
   function increase(){
