@@ -1,14 +1,16 @@
+import React, { useState } from 'react';
+
 function App (){
   return (
     <div>
-      <counter></counter>
+      <Counter></Counter>
     </div>
   )
 }
 
-function counter(){
+function Counter(){
   
-  const [count, setCount] = useState(0);
+  let [count, setCount] = useState(0);
 
   function increase(){
     setCount(count + 1);
