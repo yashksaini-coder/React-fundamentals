@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function App (){
   return(
@@ -12,10 +12,15 @@ function Counter(){
   
   let [count, setCount] = useState(0);
 
+  // hooking into the livecycle events of the component
+
   console.log("render function called");
-  setInterval(() => {
-    setCount(count + 1);
-  }, 1000);
+
+  useEffect(() => {
+    setInterval(function() {
+      setCount(count + 1);
+    }, 1000);
+  }, []);
 
   function increase(){
     setCount(count + 1);
