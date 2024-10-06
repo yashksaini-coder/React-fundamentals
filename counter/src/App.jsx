@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
 
 function App (){
+  let counterVisible = true;
   return(
     <div>
-      <Counter></Counter>
+      { counterVisible ? <Counter></Counter> : null}
+      { counterVisible && <Counter></Counter>}
     </div>
   )
 }
