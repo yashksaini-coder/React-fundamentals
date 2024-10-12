@@ -15,6 +15,7 @@ function App() {
         <Route path="/neet/online-coaching-class-11" element={<Class11Program />} />
         <Route path="/neet/online-coaching-class-12" element={<Class12Program />} />
         <Route path="/" element={<Landing />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   </div>
@@ -42,6 +43,12 @@ function Class12Program() {
       NEET programs for Class 12th
       <br />
       <button onClick={goBack}>Go back</button>
+  </div>
+}
+
+function NotFound() {
+  return <div>
+    Page not found
   </div>
 }
 
