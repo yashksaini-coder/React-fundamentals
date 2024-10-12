@@ -1,6 +1,6 @@
 
 import './App.css'
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link, useNavigate } from "react-router-dom";
 
 function App() {
 
@@ -33,8 +33,15 @@ function Class11Program() {
 }
 
 function Class12Program() {
+  const nav = useNavigate()
+
+  function goBack() {
+    nav("/")
+  }
   return <div>
       NEET programs for Class 12th
+      <br />
+      <button onClick={goBack}>Go back</button>
   </div>
 }
 
