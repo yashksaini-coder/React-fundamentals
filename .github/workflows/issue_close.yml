@@ -14,8 +14,8 @@ jobs:
 
       - name: Extract issue numbers
         run: |
-          echo "Extracting issue numbers..."
-          ISSUE_NUMBERS=$(echo "Fixes: #5 " | grep -o '#[0-9]\+' | tr -d '#')
+          echo "Extracting issue numbers from PR body..."
+          ISSUE_NUMBERS=$(echo "${{ github.event.pull_request.body }}" | grep -o '#[0-9]\+' | tr -d '#')
           if [ -z "$ISSUE_NUMBERS" ]; then
             echo "No issues referenced in the PR body."
           else
