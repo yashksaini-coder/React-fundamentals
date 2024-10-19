@@ -40,3 +40,85 @@ npm start
 ```
 
 This will launch the development server and you can view the app in your browser at `http://localhost:3000`.
+
+State
+State is an object that represents the dynamic data of a component. Unlike props, state can be modified within the component, and it allows for interactive and dynamic UIs.
+
+Example:
+
+jsx
+Copy code
+class Counter extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { count: 0 };
+  }
+
+  render() {
+    return (
+      <div>
+        <p>{this.state.count}</p>
+        <button onClick={() => this.setState({ count: this.state.count + 1 })}>
+          Increment
+        </button>
+      </div>
+    );
+  }
+}
+Lifecycle Methods
+React components have lifecycle methods that allow you to run code at different stages of a component's existence, such as when it's mounted or updated. Common lifecycle methods include:
+
+componentDidMount()
+componentDidUpdate()
+componentWillUnmount()
+These methods are primarily used in class components.
+
+Hooks
+Hooks are a relatively new addition to React (introduced in version 16.8) that allow you to use state and other React features in functional components. Common hooks include:
+
+useState for managing state
+useEffect for handling side effects
+Example:
+
+jsx
+Copy code
+import React, { useState } from 'react';
+
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>
+        Click me
+      </button>
+    </div>
+  );
+}
+Routing
+React Router is a standard library for routing in React applications. It enables the navigation between different pages and keeps the UI in sync with the URL.
+
+Install React Router:
+
+bash
+Copy code
+npm install react-router-dom
+Example:
+
+jsx
+Copy code
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Home from './Home';
+import About from './About';
+
+function App() {
+  return (
+    <Router>
+      <Switch>
+        <Route path="/" exact component={Home} />
+        <Route path="/about" component={About} />
+      </Switch>
+    </Router>
+  );
+}
