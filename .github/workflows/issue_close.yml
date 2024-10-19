@@ -1,0 +1,20 @@
+name: Close Issues on PR Merge
+
+on:
+  pull_request:
+    types:
+      - closed
+
+jobs:
+  close_issue:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
+    steps:
+      - name: Close referenced issues
+        uses: peter-evans/close-issue@v3
+        with:
+          issue-number: ${{ github.event.pull_request.body | fromJson | firstMatch('#\\d+').replace('#', '') }}
+          comment: "This issue was automatically closed because the related pull request has been merged."
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+
