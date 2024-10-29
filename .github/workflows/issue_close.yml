@@ -8,13 +8,25 @@ on:
 jobs:
   close_issue:
     runs-on: ubuntu-latest
-    if: github.event.pull_request.merged == true
     steps:
-      - name: Close referenced issues
-        uses: peter-evans/close-issue@v3
-        with:
-          issue-number: ${{ github.event.pull_request.body | fromJson | firstMatch('#\\d+').replace('#', '') }}
-          comment: "This issue was automatically closed because the related pull request has been merged."
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
+      - name: Extract issue numbers
+        run: |
+          echo "Extracting issue numbers from PR body..."
+          ISSUE_NUMBERS=$(echo "${{ github.event.pull_request.body }}" | grep -o '#[0-9]\+' | tr -d '#')
+          if [ -z "$ISSUE_NUMBERS" ]; then
+            echo "No issues referenced in the PR body."
+          else
+            echo "ISSUE_NUMBERS=$ISSUE_NUMBERS" >> $GITHUB_ENV
+          fi
+
+      - name: Close issues
+        run: |
+          for issue in $ISSUE_NUMBERS; do
+            echo "Closing issue: $issue"
+            gh issue close $issue --comment "Automatically closed because the related pull request has been merged."
+          done
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
